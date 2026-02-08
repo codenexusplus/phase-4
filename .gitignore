@@ -37,3 +37,4 @@ build/
 *.egg-info/
 .DS_Store
 todo_app.db
+.vercel

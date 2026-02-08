@@ -96,3 +96,20 @@
   background-color: #cccccc;
   cursor: not-allowed;
 }
+
+.websocket-status {
+  padding: 8px 15px;
+  font-size: 0.8rem;
+  text-align: center;
+  border-top: 1px solid #eee;
+}
+
+.websocket-status.connected {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.websocket-status.disconnected {
+  background-color: #ffebee;
+  color: #c62828;
+}

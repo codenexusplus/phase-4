@@ -25,23 +25,32 @@ description: "Task list template for feature implementation"
 - **Mobile**: `api/src/`, `ios/src/` or `android/src/`
 - Paths shown below assume single project - adjust based on plan.md structure
 
-<!-- 
+<!--
   ============================================================================
   IMPORTANT: The tasks below are SAMPLE TASKS for illustration purposes only.
-  
+
   The /sp.tasks command MUST replace these with actual tasks based on:
   - User stories from spec.md (with their priorities P1, P2, P3...)
   - Feature requirements from plan.md
   - Entities from data-model.md
   - Endpoints from contracts/
-  
+
   Tasks MUST be organized by user story so each story can be:
   - Implemented independently
   - Tested independently
   - Delivered as an MVP increment
-  
+
   DO NOT keep these sample tasks in the generated tasks.md file.
   ============================================================================
+
+  ADDITIONAL CONSTITUTION PRINCIPLES TO FOLLOW:
+  - Statelessness: No local data storage; all state in Neon DB
+  - Security: All DB queries include WHERE user_id = :user_id
+  - Async operations: All operations use async/await patterns
+  - Infrastructure Automation: No manual YAML edits; use AI agents for infrastructure (if applicable)
+  - High Availability: Minimum 2 replicas per service (if applicable)
+  - Tooling: Use Gordon (Docker AI), kubectl-ai (manifests), Kagent (health checks) (if applicable)
+  - Folder Isolation: Infrastructure assets in `/phase-4-infrastructure` directory (if applicable)
 -->
 
 ## Phase 1: Setup (Shared Infrastructure)
@@ -237,6 +246,18 @@ With multiple developers:
    - Developer B: User Story 2
    - Developer C: User Story 3
 3. Stories complete and integrate independently
+
+---
+
+## Constitution Compliance Notes
+
+- **Statelessness**: Ensure no local data storage; all state persists in Neon DB
+- **Security**: Verify all database queries include user isolation (WHERE user_id = :user_id)
+- **Asynchronous Operations**: Confirm all operations use async/await patterns
+- **Infrastructure Automation**: If applicable, avoid manual YAML edits; use AI agents for infrastructure
+- **High Availability**: If applicable, ensure minimum 2 replicas per service
+- **Tooling**: If applicable, use Gordon (Docker AI), kubectl-ai (manifests), Kagent (health checks)
+- **Folder Isolation**: If applicable, place infrastructure assets in `/phase-4-infrastructure` directory
 
 ---
 

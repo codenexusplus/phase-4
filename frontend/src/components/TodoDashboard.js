@@ -31,7 +31,7 @@ const TodoDashboard = forwardRef(({ onRefresh }, ref) => {
     try {
       setLoading(true);
       // Using user.id as the user identifier in the API endpoint
-      const response = await axios.get(`${API_BASE_URL}/${user.id}/tasks`, {
+      const response = await axios.get(`${API_BASE_URL}/api/${user.id}/tasks`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -53,7 +53,7 @@ const TodoDashboard = forwardRef(({ onRefresh }, ref) => {
 
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/${user.id}/tasks`,
+        `${API_BASE_URL}/api/${user.id}/tasks`,
         {
           title: newTaskTitle,
           description: '',  // Send empty description as it's optional
@@ -81,7 +81,7 @@ const TodoDashboard = forwardRef(({ onRefresh }, ref) => {
 
     try {
       const response = await axios.patch(
-        `${API_BASE_URL}/${user.id}/tasks/${taskId}/complete`,
+        `${API_BASE_URL}/api/${user.id}/tasks/${taskId}/complete`,
         { completed: !currentStatus },
         {
           headers: {
@@ -105,7 +105,7 @@ const TodoDashboard = forwardRef(({ onRefresh }, ref) => {
 
     try {
       await axios.delete(
-        `${API_BASE_URL}/${user.id}/tasks/${taskId}`,
+        `${API_BASE_URL}/api/${user.id}/tasks/${taskId}`,
         {
           headers: {
             'Authorization': `Bearer ${token}`
@@ -134,7 +134,7 @@ const TodoDashboard = forwardRef(({ onRefresh }, ref) => {
 
     try {
       const response = await axios.put(
-        `${API_BASE_URL}/${user.id}/tasks/${taskId}`,
+        `${API_BASE_URL}/api/${user.id}/tasks/${taskId}`,
         {
           title: editingTaskTitle,
           description: editingTaskDescription,

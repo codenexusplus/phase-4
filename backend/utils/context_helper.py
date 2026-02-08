@@ -1,8 +1,8 @@
-from sqlalchemy.ext.asyncio import AsyncSession
+﻿from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from typing import List, Dict
-from ..models.message import Message
-from ..database.connection import async_engine
+from models.message import Message
+from database.connection import async_engine
 
 
 async def get_conversation_context(conversation_id: int, limit: int = 10) -> List[Dict[str, str]]:

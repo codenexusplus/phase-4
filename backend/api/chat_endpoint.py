@@ -1,15 +1,15 @@
-from fastapi import APIRouter, Depends, HTTPException
+﻿from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from typing import Dict, Any
 import json
 
-from backend.database.session import get_session
-from backend.agents.agent_logic import run_agent
-from backend.models.message import Message, MessageBase
-from backend.models.conversation import Conversation
-from backend.utils.error_handler import handle_error
-from backend.config.settings import settings
+from database.session import get_session
+from agents.agent_logic import run_agent
+from models.message import Message, MessageBase
+from models.conversation import Conversation
+from utils.error_handler import handle_error
+from config.settings import settings
 
 router = APIRouter()
 

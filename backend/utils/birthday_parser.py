@@ -1,4 +1,4 @@
-import re
+﻿import re
 from datetime import datetime
 from typing import List, Tuple, Optional
 
@@ -21,13 +21,13 @@ def extract_birthdays_from_text(text: str) -> List[Tuple[str, str]]:
         r"birthday\s+of\s+([A-Za-z\s]+)\s+is\s+([A-Za-z]+\s+\d{1,2})",
         
         # Matches: "John Doe - birthday March 15"
-        r"([A-Za-z\s]+)\s*[-–—]\s*birthday\s+([A-Za-z]+\s+\d{1,2})",
+        r"([A-Za-z\s]+)\s*[-â€“â€”]\s*birthday\s+([A-Za-z]+\s+\d{1,2})",
         
         # Matches: "John Doe (birthday: March 15)"
         r"([A-Za-z\s]+)\s*\(?birthday\s*[:\-]\s*([A-Za-z]+\s+\d{1,2})\)?",
         
         # Matches: "March 15 - John Doe's birthday"
-        r"([A-Za-z]+\s+\d{1,2})\s*[-–—]\s*([A-Za-z\s]+)'s\s+birthday",
+        r"([A-Za-z]+\s+\d{1,2})\s*[-â€“â€”]\s*([A-Za-z\s]+)'s\s+birthday",
     ]
     
     birthdays = []

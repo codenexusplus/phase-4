@@ -1,45 +1,50 @@
-# Implementation Plan: AI Todo Agentic System
+# Implementation Plan: [FEATURE]
 
-**Branch**: `001-ai-todo-agent` | **Date**: 2026-01-17 | **Spec**: [spec.md](spec.md)
-**Input**: Feature specification from `/specs/001-ai-todo-agent/spec.md`
+**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
+**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
 
 **Note**: This template is filled in by the `/sp.plan` command. See `.specify/templates/commands/plan.md` for the execution workflow.
 
 ## Summary
 
-Transform a static Todo app into an Agentic System where an AI assistant understands natural language, manages tasks via MCP tools, and maintains long-term conversation memory. The system will use FastAPI backend with OpenAI Agents SDK, Official MCP Python SDK for tooling, SQLModel with Neon PostgreSQL for persistence, and OpenAI ChatKit for the frontend. The architecture enforces strict statelessness with every request cycle authenticating the user, retrieving conversation history from the database, executing the agentic loop, and persisting the new state back to the database.
+[Extract from feature spec: primary requirement + technical approach from research]
 
 ## Technical Context
 
-**Language/Version**: Python 3.10+ (as mandated by constitution)
-**Primary Dependencies**: FastAPI, OpenAI Agents SDK, Official MCP Python SDK, SQLModel, Neon PostgreSQL, Pydantic V2, OpenAI ChatKit
-**Storage**: Neon Serverless PostgreSQL with async engine (as mandated by constitution)
-**Testing**: pytest (standard Python testing framework)
-**Target Platform**: Linux server (web application backend)
-**Project Type**: Web application (backend + frontend integration)
-**Performance Goals**: <5 second response time for 90% of interactions, 95% accuracy for natural language task operations
-**Constraints**: Strict statelessness (no in-memory state), user data isolation (WHERE user_id = :user_id), async/await throughout stack
-**Scale/Scope**: Support multiple concurrent users with proper tenancy isolation
+<!--
+  ACTION REQUIRED: Replace the content in this section with the technical details
+  for the project. The structure here is presented in advisory capacity to guide
+  the iteration process.
+-->
+
+**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]
+**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]
+**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
+**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]
+**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
+**Project Type**: [single/web/mobile - determines source structure]
+**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]
+**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]
+**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-### Constitutional Compliance Verification
-
-- ✅ **Strict Statelessness**: Plan enforces stateless architecture with every request cycle authenticating user, retrieving conversation history from DB, executing agentic loop, and persisting state back to DB
-- ✅ **MCP Protocol Compliance**: All business logic for Task CRUD will be encapsulated within an Official MCP Server; AI Agent will interact with DB only through MCP tools
-- ✅ **Technical Stack Standardization**: Using Python 3.10+, FastAPI, OpenAI Agents SDK, Official MCP Python SDK, SQLModel with Neon PostgreSQL, Pydantic V2, and async/await throughout
-- ✅ **Coding & Naming Standards**: Will follow PascalCase for classes, snake_case for functions/variables, UPPER_SNAKE_CASE for constants, mandatory type hints, and structured exceptions
-- ✅ **Natural Language Processing Capabilities**: Will implement 'Last-N Messages' sliding window (default: 10) for conversation context and handle ambiguous commands
-- ✅ **Security & Privacy**: Every SQL query will include WHERE user_id = :user_id clause for data isolation; sensitive keys will be read from environment variables
+Based on the project constitution principles:
+- Immutability: All infrastructure components will be stateless with persistence in external Neon PostgreSQL database
+- High Availability: 2 replicas for services to ensure redundancy (if applicable to feature)
+- Separation of Concerns: Components will be logically isolated
+- Security First: Secrets will be managed using appropriate mechanisms, not hardcoded
+- Infrastructure Automation: Following GitOps principles for infrastructure changes
+- Tooling Requirements: Using appropriate AI tools (Gordon, kubectl-ai, Kagent) when applicable
 
 ## Project Structure
 
 ### Documentation (this feature)
 
 ```text
-specs/001-ai-todo-agent/
+specs/[###-feature]/
 ├── plan.md              # This file (/sp.plan command output)
 ├── research.md          # Phase 0 output (/sp.plan command)
 ├── data-model.md        # Phase 1 output (/sp.plan command)
@@ -49,56 +54,51 @@ specs/001-ai-todo-agent/
 ```
 
 ### Source Code (repository root)
+<!--
+  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
+  for this feature. Delete unused options and expand the chosen structure with
+  real paths (e.g., apps/admin, packages/something). The delivered plan must
+  not include Option labels.
+-->
 
 ```text
-backend/
-├── main.py              # FastAPI application entry point
+# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
+src/
 ├── models/
-│   ├── __init__.py
-│   ├── task.py          # Task entity model
-│   ├── conversation.py  # Conversation entity model
-│   └── message.py       # Message entity model
-├── database/
-│   ├── __init__.py
-│   ├── connection.py    # Database connection setup
-│   └── session.py       # Session dependency
-├── mcp_server/
-│   ├── __init__.py
-│   └── server.py        # MCP server and tool definitions
-├── agents/
-│   ├── __init__.py
-│   └── agent_logic.py   # OpenAI Agent orchestration
-├── api/
-│   ├── __init__.py
-│   └── chat_endpoint.py # Chat endpoint implementation
-├── config/
-│   ├── __init__.py
-│   └── settings.py      # Configuration and settings
-└── utils/
-    ├── __init__.py
-    └── context_helper.py # Context fetching helper
-
-frontend/
-├── package.json
-├── src/
-│   ├── index.js
-│   └── components/
-│       └── ChatInterface.jsx
-└── public/
-    └── index.html
+├── services/
+├── cli/
+└── lib/
 
 tests/
-├── unit/
-├── integration/
 ├── contract/
-└── e2e/
+├── integration/
+└── unit/
 
-requirements.txt
-.env.example
-README.md
+# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
+backend/
+├── src/
+│   ├── models/
+│   ├── services/
+│   └── api/
+└── tests/
+
+frontend/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   └── services/
+└── tests/
+
+# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
+api/
+└── [same as backend above]
+
+ios/ or android/
+└── [platform-specific structure: feature modules, UI flows, platform tests]
 ```
 
-**Structure Decision**: Selected web application structure with separate backend and frontend directories to accommodate the FastAPI backend and OpenAI ChatKit frontend integration, with proper separation of concerns for models, database, MCP tools, agents, API endpoints, configuration, and utilities.
+**Structure Decision**: [Document the selected structure and reference the real
+directories captured above]
 
 ## Complexity Tracking
 
@@ -106,4 +106,5 @@ README.md
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
 |-----------|------------|-------------------------------------|
-| (None) | (None) | (None) |
+| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
+| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |

@@ -1,8 +1,3 @@
----
-
-description: "Task list template for feature implementation"
----
-
 # Tasks: AI Todo Agentic System
 
 **Input**: Design documents from `/specs/001-ai-todo-agent/`
@@ -23,7 +18,7 @@ description: "Task list template for feature implementation"
 - **Single project**: `src/`, `tests/` at repository root
 - **Web app**: `backend/src/`, `frontend/src/`
 - **Mobile**: `api/src/`, `ios/src/` or `android/src/`
-- Paths shown below assume single project - adjust based on plan.md structure
+- Paths shown below assume web app structure based on plan.md
 
 ## Phase 1: Setup (Shared Infrastructure)
 
@@ -41,14 +36,12 @@ description: "Task list template for feature implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-Examples of foundational tasks (adjust based on your project):
-
-- [X] T004 Setup database schema and migrations framework in backend/database/connection.py
-- [X] T005 [P] Implement database models in backend/models/ (task.py, conversation.py, message.py)
-- [X] T006 [P] Setup async engine for Neon PostgreSQL in backend/database/connection.py
-- [X] T007 Create get_session dependency in backend/database/session.py
-- [X] T008 Configure environment configuration management in backend/config/settings.py
-- [X] T009 Setup error handling and logging infrastructure in backend/utils/error_handler.py
+- [ ] T004 Setup database schema and migrations framework in backend/database/connection.py
+- [ ] T005 [P] Implement database models in backend/models/ (task.py, conversation.py, message.py)
+- [ ] T006 [P] Setup async engine for Neon PostgreSQL in backend/database/connection.py
+- [ ] T007 Create get_session dependency in backend/database/session.py
+- [ ] T008 Configure environment configuration management in backend/config/settings.py
+- [ ] T009 Setup error handling and logging infrastructure in backend/utils/error_handler.py
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -69,18 +62,18 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Implementation for User Story 1
 
-- [X] T012 [P] [US1] Create MCP server in backend/mcp_server/server.py
-- [X] T013 [US1] Implement add_task tool in backend/mcp_server/server.py (Accepts title/desc, returns confirmation)
-- [X] T014 [US1] Implement list_tasks tool in backend/mcp_server/server.py (Filters: all, pending, completed)
-- [X] T015 [US1] Implement complete_task tool in backend/mcp_server/server.py
-- [X] T016 [US1] Implement update_task and delete_task tools in backend/mcp_server/server.py
-- [X] T017 [US1] Verify all tools strictly filter by user_id in backend/mcp_server/server.py
-- [X] T018 [US1] Initialize OpenAI Agent in backend/agents/agent_logic.py
-- [X] T019 [US1] Connect MCP tools to the Agent in backend/agents/agent_logic.py
-- [X] T020 [US1] Create run_agent() loop in backend/agents/agent_logic.py to handle user input + history
-- [X] T021 [US1] Implement POST /api/{user_id}/chat endpoint in backend/api/chat_endpoint.py
-- [X] T022 [US1] Add logic to load context, run agent, save messages to DB, return JSON in backend/api/chat_endpoint.py
-- [X] T023 [US1] Add confirmation flow with formatted Markdown in backend/agents/agent_logic.py
+- [ ] T012 [P] [US1] Create MCP server in backend/mcp_server/server.py
+- [ ] T013 [US1] Implement add_task tool in backend/mcp_server/server.py (Accepts title/desc, returns confirmation)
+- [ ] T014 [US1] Implement list_tasks tool in backend/mcp_server/server.py (Filters: all, pending, completed)
+- [ ] T015 [US1] Implement complete_task tool in backend/mcp_server/server.py
+- [ ] T016 [US1] Implement update_task and delete_task tools in backend/mcp_server/server.py
+- [ ] T017 [US1] Verify all tools strictly filter by user_id in backend/mcp_server/server.py
+- [ ] T018 [US1] Initialize OpenAI Agent in backend/agents/agent_logic.py
+- [ ] T019 [US1] Connect MCP tools to the Agent in backend/agents/agent_logic.py
+- [ ] T020 [US1] Create run_agent() loop in backend/agents/agent_logic.py to handle user input + history
+- [ ] T021 [US1] Implement POST /api/{user_id}/chat endpoint in backend/api/chat_endpoint.py
+- [ ] T022 [US1] Add logic to load context, run agent, save messages to DB, return JSON in backend/api/chat_endpoint.py
+- [ ] T023 [US1] Add confirmation flow with formatted Markdown in backend/agents/agent_logic.py
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -99,11 +92,11 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Implementation for User Story 2
 
-- [X] T026 [P] [US2] Create get_conversation_context() function in backend/utils/context_helper.py (fetches last 10 messages from DB)
-- [X] T027 [US2] Integrate context helper with agent logic in backend/agents/agent_logic.py
-- [X] T028 [US2] Modify run_agent() to include conversation history in backend/agents/agent_logic.py
-- [X] T029 [US2] Update chat endpoint to fetch and provide context to agent in backend/api/chat_endpoint.py
-- [X] T030 [US2] Add conversation tracking to ensure context is properly maintained
+- [ ] T026 [P] [US2] Create get_conversation_context() function in backend/utils/context_helper.py (fetches last 10 messages from DB)
+- [ ] T027 [US2] Integrate context helper with agent logic in backend/agents/agent_logic.py
+- [ ] T028 [US2] Modify run_agent() to include conversation history in backend/agents/agent_logic.py
+- [ ] T029 [US2] Update chat endpoint to fetch and provide context to agent in backend/api/chat_endpoint.py
+- [ ] T030 [US2] Add conversation tracking to ensure context is properly maintained
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -122,11 +115,11 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Implementation for User Story 3
 
-- [X] T033 [P] [US3] Enhance error handling for all MCP tools in backend/mcp_server/server.py
-- [X] T034 [US3] Implement structured exception handling with clear error messages in backend/mcp_server/server.py
-- [X] T035 [US3] Add validation for all MCP tools using Pydantic V2 in backend/mcp_server/server.py
-- [X] T036 [US3] Enhance agent logic to handle ambiguous requests in backend/agents/agent_logic.py
-- [X] T037 [US3] Add retry mechanisms for database unavailable scenarios in backend/database/connection.py
+- [ ] T033 [P] [US3] Enhance error handling for all MCP tools in backend/mcp_server/server.py
+- [ ] T034 [US3] Implement structured exception handling with clear error messages in backend/mcp_server/server.py
+- [ ] T035 [US3] Add validation for all MCP tools using Pydantic V2 in backend/mcp_server/server.py
+- [ ] T036 [US3] Enhance agent logic to handle ambiguous requests in backend/agents/agent_logic.py
+- [ ] T037 [US3] Add retry mechanisms for database unavailable scenarios in backend/database/connection.py
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -136,12 +129,12 @@ Examples of foundational tasks (adjust based on your project):
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [X] T038 [P] Documentation updates in docs/
-- [X] T039 Code cleanup and refactoring
-- [X] T040 Performance optimization across all stories
-- [X] T041 [P] Additional unit tests (if requested) in tests/unit/
-- [X] T042 Security hardening - ensure all queries have WHERE user_id = :user_id
-- [X] T043 Run quickstart.md validation
+- [ ] T038 [P] Documentation updates in docs/
+- [ ] T039 Code cleanup and refactoring
+- [ ] T040 Performance optimization across all stories
+- [ ] T041 [P] Additional unit tests (if requested) in tests/unit/
+- [ ] T042 Security hardening - ensure all queries have WHERE user_id = :user_id
+- [ ] T043 Run quickstart.md validation
 
 ---
 

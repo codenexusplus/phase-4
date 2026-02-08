@@ -1,15 +1,15 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+﻿from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select
 from typing import Dict, Any
 import uuid
 
-from backend.database.session import get_session
-from backend.models.user import User, UserCreate, UserLogin, UserPublic
-from backend.utils.auth import get_password_hash, verify_password, create_access_token, authenticate_user
-from backend.utils.error_handler import handle_error
-from backend.utils.auth import get_current_user
+from database.session import get_session
+from models.user import User, UserCreate, UserLogin, UserPublic
+from utils.auth import get_password_hash, verify_password, create_access_token, authenticate_user
+from utils.error_handler import handle_error
+from utils.auth import get_current_user
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
 

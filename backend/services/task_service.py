@@ -7,8 +7,8 @@ from typing import List, Optional, Dict, Any
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, update, delete
 from datetime import datetime
-from ..models.task import Task
-from ..utils.error_handler import BusinessError
+from models.task import Task
+from utils.error_handler import BusinessError
 
 
 class TaskService:

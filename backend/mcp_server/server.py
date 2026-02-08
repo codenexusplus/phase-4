@@ -1,10 +1,10 @@
-from mcp.server.fastmcp import FastMCP
+﻿from mcp.server.fastmcp import FastMCP
 from typing import List, Optional
 from datetime import datetime
 from sqlalchemy.ext.asyncio import AsyncSession
-from backend.database.connection import async_engine
-from backend.utils.error_handler import BusinessError
-from backend.services.task_service import TaskService
+from database.connection import async_engine
+from utils.error_handler import BusinessError
+from services.task_service import TaskService
 
 
 # Initialize MCP Server

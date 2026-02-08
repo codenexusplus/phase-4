@@ -1,10 +1,10 @@
-from fastapi import FastAPI
+﻿from fastapi import FastAPI
 from contextlib import asynccontextmanager
-from .api.chat_endpoint_absolute import router as chat_router
-from .api.task_endpoint import router as task_router
-from .api.auth_endpoint import router as auth_router
-from .config.settings import settings
-from .database.connection import async_engine
+from api.chat_endpoint_absolute import router as chat_router
+from api.task_endpoint import router as task_router
+from api.auth_endpoint import router as auth_router
+from config.settings import settings
+from database.connection import async_engine
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi.middleware.cors import CORSMiddleware
 import asyncio

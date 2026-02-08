@@ -1,0 +1,72 @@
+# Production-grade values for todo-chatbot
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+backend:
+  replicaCount: 2
+  image:
+    repository: todo-backend
+    pullPolicy: Always  # Changed to always pull the latest image
+    tag: "v2"  # Updated to v2 with the fixed agent_logic.py
+  service:
+    type: ClusterIP
+    port: 8000  # Changed to match the actual backend port
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+  # Enhanced liveness and readiness probes for SQLModel migrations
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 8000
+    initialDelaySeconds: 30  # Allow time for DB migrations
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+  readinessProbe:
+    httpGet:
+      path: /health
+      port: 8000
+    initialDelaySeconds: 10
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+frontend:
+  replicaCount: 2
+  image:
+    repository: todo-frontend
+    pullPolicy: IfNotPresent
+    tag: "latest"
+  service:
+    type: NodePort
+    port: 3000  # Changed to match the actual frontend port
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+postgres:
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+  persistence:
+    enabled: true
+    size: 10Gi  # Increased for production use
+    storageClass: ""  # Use default storage class
+
+# Database and API configuration
+secrets:
+  databaseUrl: "postgresql+asyncpg://postgres:password123@postgres-db:5432/todo_app"  # Updated to use service name
+  openaiApiKey: "your-openai-api-key-here"

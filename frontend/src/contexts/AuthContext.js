@@ -43,14 +43,19 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     setLoading(true);
     try {
-      const response = await axios.post(`${API_BASE_URL}/auth/register`, userData);
+      // Validate API_BASE_URL before making the request
+      if (!API_BASE_URL) {
+        throw new Error('API_BASE_URL is not defined. Please check your environment variables.');
+      }
+
+      const response = await axios.post(`${API_BASE_URL}/api/auth/register`, userData);
       localStorage.setItem('token', response.data.access_token);
       setToken(response.data.access_token);
       setUser(response.data.user);
       return { success: true, data: response.data };
     } catch (error) {
       console.error('Registration error:', error);
-      return { success: false, error: error.response?.data?.detail || 'Registration failed' };
+      return { success: false, error: error.response?.data?.detail || error.message || 'Registration failed' };
     } finally {
       setLoading(false);
     }
@@ -60,14 +65,19 @@ export const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     setLoading(true);
     try {
-      const response = await axios.post(`${API_BASE_URL}/auth/login`, credentials);
+      // Validate API_BASE_URL before making the request
+      if (!API_BASE_URL) {
+        throw new Error('API_BASE_URL is not defined. Please check your environment variables.');
+      }
+
+      const response = await axios.post(`${API_BASE_URL}/api/auth/login`, credentials);
       localStorage.setItem('token', response.data.access_token);
       setToken(response.data.access_token);
       setUser(response.data.user);
       return { success: true, data: response.data };
     } catch (error) {
       console.error('Login error:', error);
-      return { success: false, error: error.response?.data?.detail || 'Login failed' };
+      return { success: false, error: error.response?.data?.detail || error.message || 'Login failed' };
     } finally {
       setLoading(false);
     }
@@ -83,7 +93,7 @@ export const AuthProvider = ({ children }) => {
   // Get user profile
   const getUserProfile = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/auth/me`);
+      const response = await axios.get(`${API_BASE_URL}/api/auth/me`);
       setUser(response.data);
       return response.data;
     } catch (error) {

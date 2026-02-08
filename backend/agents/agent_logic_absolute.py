@@ -1,4 +1,4 @@
-from openai import OpenAI
+﻿from openai import OpenAI
 from dotenv import load_dotenv
 import os
 from typing import Dict, Any, List
@@ -181,7 +181,7 @@ async def run_agent(user_message: str, conversation_id: int, user_id: str) -> Di
             agent_response = response_message.content
 
         # Format the response with markdown for confirmation
-        formatted_response = f"✅ **Response:** {agent_response}"
+        formatted_response = f"âœ… **Response:** {agent_response}"
 
         return {
             "response": formatted_response,

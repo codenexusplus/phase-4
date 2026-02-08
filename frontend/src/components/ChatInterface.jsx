@@ -11,6 +11,93 @@ const ChatInterface = ({ onTaskUpdate }) => {
   const messagesEndRef = useRef(null);
   const { token, user } = useAuth();
 
+  // WebSocket connection state
+  const wsRef = useRef(null);
+  const [wsConnected, setWsConnected] = useState(false);
+
+  // Initialize WebSocket connection
+  useEffect(() => {
+    // Attempt to establish WebSocket connection for real-time updates
+    const connectWebSocket = () => {
+      try {
+        // Check if API_BASE_URL is valid before creating WebSocket connection
+        if (!API_BASE_URL) {
+          console.error('API_BASE_URL is not defined. Cannot establish WebSocket connection.');
+          return;
+        }
+
+        // Convert API_BASE_URL from http(s) to ws(s)
+        let wsUrl;
+        if (API_BASE_URL.includes('localhost:8000')) {
+          // Special case for local development: use port 3001 for WebSocket
+          wsUrl = 'ws://localhost:3001/ws';
+        } else {
+          // For other environments, derive WebSocket URL from API_BASE_URL
+          wsUrl = API_BASE_URL.replace(/^http/, 'ws') + '/ws';
+        }
+
+        console.log('Attempting to connect to WebSocket:', wsUrl);
+
+        const ws = new WebSocket(wsUrl);
+
+        ws.onopen = () => {
+          console.log('WebSocket connected');
+          setWsConnected(true);
+          wsRef.current = ws;
+        };
+
+        ws.onmessage = (event) => {
+          try {
+            const data = JSON.parse(event.data);
+            // Handle incoming WebSocket messages
+            if (data.type === 'task_update') {
+              // Trigger task update if the AI performed an action that affects tasks
+              if (onTaskUpdate) {
+                onTaskUpdate();
+              }
+            }
+          } catch (error) {
+            console.error('Error parsing WebSocket message:', error);
+          }
+        };
+
+        ws.onerror = (error) => {
+          console.error('WebSocket error:', error);
+          setWsConnected(false);
+        };
+
+        ws.onclose = () => {
+          console.log('WebSocket disconnected');
+          setWsConnected(false);
+          wsRef.current = null;
+
+          // Attempt to reconnect after a delay (but only if user is still authenticated)
+          if (user && token) {
+            setTimeout(connectWebSocket, 5000);
+          }
+        };
+
+        // Store WebSocket reference
+        wsRef.current = ws;
+      } catch (error) {
+        console.error('Error initializing WebSocket:', error);
+        setWsConnected(false);
+      }
+    };
+
+    // Only attempt WebSocket connection if user is authenticated
+    if (user && token) {
+      connectWebSocket();
+    }
+
+    // Cleanup function
+    return () => {
+      if (wsRef.current) {
+        wsRef.current.close();
+      }
+    };
+  }, [user, token, onTaskUpdate]);
+
   // Scroll to bottom of messages
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -40,7 +127,7 @@ const ChatInterface = ({ onTaskUpdate }) => {
 
     try {
       // Send the message to the backend with authentication
-      const response = await axios.post(`${API_BASE_URL}/chat`, {
+      const response = await axios.post(`${API_BASE_URL}/api/${user.id}/chat`, {
         message: inputValue,
         conversation_id: conversationId
       }, {
@@ -156,6 +243,18 @@ const ChatInterface = ({ onTaskUpdate }) => {
           Send
         </button>
       </form>
+
+      {/* Show WebSocket connection status */}
+      {wsConnected && (
+        <div className="websocket-status connected">
+          Connected to real-time updates
+        </div>
+      )}
+      {!wsConnected && (
+        <div className="websocket-status disconnected">
+          Real-time updates not available
+        </div>
+      )}
     </div>
   );
 };

@@ -2,10 +2,10 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import os
 from typing import Dict, Any, List
-from backend.mcp_server.server import mcp_server
-from backend.utils.context_helper import get_conversation_context
-from backend.utils.error_handler import create_error_response
-from backend.utils.birthday_parser import extract_birthdays_from_text, find_birthdays_on_specific_date
+from mcp_server.server import mcp_server
+from utils.context_helper import get_conversation_context
+from utils.error_handler import create_error_response
+from utils.birthday_parser import extract_birthdays_from_text, find_birthdays_on_specific_date
 
 # Load environment variables
 load_dotenv()
@@ -113,7 +113,7 @@ else:
                     agent_response = f"Mujhe {birthday_query} ko kisi ka birthday nahi mila."
 
                 # Format the response with markdown for confirmation
-                formatted_response = f"✅ **Response:** {agent_response}"
+                formatted_response = f"âœ… **Response:** {agent_response}"
 
                 return {
                     "response": formatted_response,
@@ -142,7 +142,7 @@ else:
                     agent_response = f"Mujhe {person_name} ka birthday nahi mila."
 
                 # Format the response with markdown for confirmation
-                formatted_response = f"✅ **Response:** {agent_response}"
+                formatted_response = f"âœ… **Response:** {agent_response}"
 
                 return {
                     "response": formatted_response,
@@ -305,7 +305,7 @@ else:
                 action_performed = False  # No action was performed
 
             # Format the response with markdown for confirmation
-            formatted_response = f"✅ **Response:** {agent_response}"
+            formatted_response = f"âœ… **Response:** {agent_response}"
 
             return {
                 "response": formatted_response,

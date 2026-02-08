@@ -1,9 +1,9 @@
 <!-- SYNC IMPACT REPORT:
-Version change: N/A -> 1.0.0
-Modified principles: N/A (new constitution)
-Added sections: Architectural Mandate, Technical Stack & Skills, Coding & Naming Standards, Skills & Capabilities, Security & Privacy
+Version change: 1.0.0 -> 1.1.0
+Modified principles: Added Phase 4 Infrastructure Governance section
+Added sections: Phase 4 Infrastructure Governance
 Removed sections: N/A
-Templates requiring updates: N/A (new file)
+Templates requiring updates: ✅ .specify/templates/plan-template.md, ✅ .specify/templates/spec-template.md, ✅ .specify/templates/tasks-template.md
 Follow-up TODOs: None
 -->
 
@@ -52,6 +52,32 @@ All database queries must implement proper user isolation through tenancy contro
 ### Asynchronous Operations
 The entire stack must utilize async/await patterns to maximize efficiency and scalability. All database operations, API calls, and external service interactions must be asynchronous.
 
+## Phase 4 Infrastructure Governance
+
+### 1. Tooling Requirements
+- **Gordon (Docker AI)**: Must be used for optimizing Docker images
+- **kubectl-ai**: Must be used for generating Kubernetes manifests
+- **Kagent**: Must be used for health checks and diagnostics
+
+### 2. Statelessness in Containerized Environment
+- No local data storage in containers
+- All state must be persisted in Neon DB
+- Container restarts must not affect application state
+
+### 3. High Availability Requirements
+- Minimum 2 replicas per service (backend and frontend)
+- Load balancing must distribute traffic across all replicas
+- Health checks must monitor service availability
+
+### 4. Infrastructure Automation
+- No manual YAML edits allowed
+- All infrastructure must be generated via AI agents based on specifications
+- Infrastructure changes must follow GitOps principles
+
+### 5. Folder Isolation
+- All Phase 4 infrastructure assets must be contained within `/phase-4-infrastructure` directory
+- Dockerfiles, Helm charts, and Kubernetes manifests must be organized in designated subdirectories
+
 ## Development Workflow
 
 ### Error Handling Standards
@@ -64,4 +90,4 @@ All input and output must be validated using Pydantic V2 schemas. This includes 
 
 This constitution defines the mandatory practices for the AI Todo Chatbot project. All code submissions, reviews, and deployments must comply with these principles. Deviations require explicit approval and documentation of the exception.
 
-**Version**: 1.0.0 | **Ratified**: 2026-01-17 | **Last Amended**: 2026-01-17
+**Version**: 1.1.0 | **Ratified**: 2026-01-17 | **Last Amended**: 2026-02-02

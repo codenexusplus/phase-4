@@ -1,12 +1,12 @@
-from openai import OpenAI
+﻿from openai import OpenAI
 from dotenv import load_dotenv
 import os
 from typing import Dict, Any, List
-from ..mcp_server.server import mcp_server
-from ..utils.context_helper import get_conversation_context
-from ..utils.error_handler import create_error_response
-from ..config.settings import settings
-from ..utils.birthday_parser import extract_birthdays_from_text, find_birthdays_on_specific_date
+from mcp_server.server import mcp_server
+from utils.context_helper import get_conversation_context
+from utils.error_handler import create_error_response
+from config.settings import settings
+from utils.birthday_parser import extract_birthdays_from_text, find_birthdays_on_specific_date
 import json
 
 # Load environment variables
@@ -323,7 +323,7 @@ async def run_agent(user_message: str, conversation_id: int, user_id: str) -> Di
                 agent_response = "I processed your request. Let me know if you'd like me to help with tasks."
 
         # Format the response with markdown for confirmation
-        formatted_response = f"✅ **Response:** {agent_response}"
+        formatted_response = f"âœ… **Response:** {agent_response}"
 
         return {
             "response": formatted_response,

@@ -1,21 +1,16 @@
-import os
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+﻿from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
-from dotenv import load_dotenv
-from urllib.parse import urlparse
+from config.settings import settings
 
-# Load environment variables
-load_dotenv()
+# Get database URL from settings
+DATABASE_URL = settings.DATABASE_URL
 
-# Get database URL from environment
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:password@localhost/dbname")
-
-# Parse the URL to handle special parameters for asyncpg
-parsed_url = urlparse(DATABASE_URL)
-
-# Replace postgresql:// with postgresql+asyncpg:// if not already set
+# Handle different database types appropriately
 if DATABASE_URL.startswith("postgresql://"):
-    # Extract components
+    # Replace postgresql:// with postgresql+asyncpg:// for async support
+    from urllib.parse import urlparse
+
+    parsed_url = urlparse(DATABASE_URL)
     scheme = parsed_url.scheme.replace('postgresql', 'postgresql+asyncpg')
     username = parsed_url.username
     password = parsed_url.password
@@ -29,7 +24,13 @@ if DATABASE_URL.startswith("postgresql://"):
     # If there are query parameters, we'll handle them separately if needed
     if parsed_url.query:
         # For Neon, we might need to handle SSL differently
-        pass
+        DATABASE_URL += f"?{parsed_url.query}"
+
+elif DATABASE_URL.startswith("sqlite://"):
+    # Handle SQLite URLs properly for async usage
+    if not DATABASE_URL.startswith("sqlite+aiosqlite://"):
+        # Convert standard SQLite URL to async SQLite URL
+        DATABASE_URL = DATABASE_URL.replace("sqlite://", "sqlite+aiosqlite://", 1)
 
 # Create async engine
 async_engine = create_async_engine(DATABASE_URL, echo=True)

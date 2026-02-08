@@ -1,12 +1,13 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from contextlib import asynccontextmanager
-from backend.api.chat_endpoint import router as chat_router
-from backend.api.task_endpoint import router as task_router
-from backend.config.settings import settings
-from backend.database.connection import async_engine
+from api.chat_endpoint import router as chat_router
+from api.task_endpoint import router as task_router
+from config.settings import settings
+from database.connection import async_engine
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi.middleware.cors import CORSMiddleware
 import asyncio
+from websocket_server import handle_websocket_connection
 
 
 @asynccontextmanager
@@ -56,8 +57,13 @@ app.include_router(chat_router, prefix="/api", tags=["chat"])
 app.include_router(task_router, prefix="/api", tags=["tasks"])
 
 # Include the auth router
-from backend.api.auth_endpoint import router as auth_router
+from api.auth_endpoint import router as auth_router
 app.include_router(auth_router, prefix="/api", tags=["auth"])
+
+# WebSocket endpoint for real-time updates
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await handle_websocket_connection(websocket)
 
 @app.get("/")
 async def root():

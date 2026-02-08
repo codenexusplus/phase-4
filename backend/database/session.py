@@ -1,4 +1,4 @@
-from .connection import AsyncSessionLocal
+from database.connection import AsyncSessionLocal
 from sqlalchemy.ext.asyncio import AsyncSession
 
 async def get_session() -> AsyncSession:

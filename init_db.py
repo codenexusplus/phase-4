@@ -14,7 +14,7 @@ from sqlalchemy.orm import sessionmaker
 async def create_tables():
     """Create all database tables"""
     # Get database URL from settings
-    DATABASE_URL = settings.database_url
+    DATABASE_URL = settings.DATABASE_URL
 
     # Parse the URL to handle special parameters for asyncpg
     parsed_url = urlparse(DATABASE_URL)
