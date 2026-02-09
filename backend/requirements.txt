@@ -10,6 +10,7 @@ sqlmodel
 sqlalchemy[asyncio]
 asyncpg
 psycopg2-binary
+aiosqlite
 openai>=1.0.0
 python-dotenv
 mcp

@@ -3,9 +3,9 @@
 # Declare variables to be passed into your templates.
 
 backend:
-  replicaCount: 2
+  replicaCount: 1
   image:
-    repository: todo-backend
+    repository: phase3-backend
     pullPolicy: IfNotPresent
     tag: "latest"
   service:
@@ -20,9 +20,9 @@ backend:
       memory: 256Mi
 
 frontend:
-  replicaCount: 2
+  replicaCount: 1
   image:
-    repository: todo-frontend
+    repository: phase3-frontend
     pullPolicy: IfNotPresent
     tag: "latest"
   service:
